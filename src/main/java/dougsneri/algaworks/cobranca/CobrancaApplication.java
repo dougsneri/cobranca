@@ -9,5 +9,4 @@ public class CobrancaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CobrancaApplication.class, args);
 	}
-
 }
