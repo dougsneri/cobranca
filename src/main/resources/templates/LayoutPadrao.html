@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
 <!-- 	Usando Thymeleaf layout dialect para criar um template padrão para as páginas (https://github.com/ultraq/thymeleaf-layout-dialect) -->
 	
@@ -12,18 +12,11 @@
 	<link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
 <body>
-	<nav class="navbar navbar-inverse navbar-static-top">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">
-					<img alt="Logo" src="...">
-				</a>
-			</div>
-		</div>
-	</nav>
 	
+	<header th:include="Cabecalho"></header>
+
 	<section layout:fragment="conteudo">
-		<p>Contéudo Principal</p>	
+		<p>Conteúdo principal</p>
 	</section>
 	
 	<script src="/js/jquery-3.3.1.min.js"></script>

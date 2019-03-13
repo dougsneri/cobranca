@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="LayoutPadrao">
+	layout:decorate="~{LayoutPadrao}">
 	
 <head>
 	<title>Cadastro de Título</title>
@@ -17,7 +17,10 @@
 	
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h1 class="panel-title">Novo Titulo</h1>
+				<div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Novo Título</h1>
+					<a class="btn btn-link aw-link-panel" href="/titulos">Voltar para pesquisa</a>
+				</div>
 			</div>
 			<div class="panel-body">
 				<div class="form-group">
