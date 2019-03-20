@@ -22,14 +22,14 @@ import dougsneri.algaworks.cobranca.repository.Titulos;
 @RequestMapping("/titulos")
 public class TituloController {
 	
-	public static final String CADASTRO_TITULO = "CadastroTitulo";
+//	public static final String CADASTRO_TITULO = "CadastroTitulo";
 
 	@Autowired
 	private Titulos titulos;
 	
 	@RequestMapping("/novo")
 	public ModelAndView novo() {
-		ModelAndView mv = new ModelAndView(CADASTRO_TITULO);
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject(new Titulo());
 		return mv;
 	}
@@ -37,7 +37,7 @@ public class TituloController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String salvar(@Validated Titulo titulo, Errors errors, RedirectAttributes attributes) {
 		if (errors.hasErrors()) {
-			return "CADASTRO_TITULO";
+			return "CadastroTitulo";
 		}
 		
 		titulos.save(titulo);
@@ -54,12 +54,19 @@ public class TituloController {
 	}
 	
 	@RequestMapping("{codigo}")
-	public ModelAndView edicao(@PathVariable Long codigo) {
-		Titulo titulo = titulos.findById(codigo).get();
+	public ModelAndView edicao(@PathVariable("codigo") Titulo titulo) {
 		
-		ModelAndView mv = new ModelAndView(CADASTRO_TITULO);
+		ModelAndView mv = new ModelAndView("CadastroTitulo");
 		mv.addObject(titulo);
 		return mv;
+	}
+	
+	@RequestMapping(value="{codigo}", method = RequestMethod.DELETE)
+	public String excluir(@PathVariable Long codigo, RedirectAttributes attributes) {
+		titulos.deleteById(codigo);
+		
+		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
+		return "redirect:/titulos";
 	}
 	
 	@ModelAttribute("todosStatusTitulos")
