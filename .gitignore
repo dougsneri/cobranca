@@ -31,3 +31,5 @@ HELP.md
 /.settings/
 velocity.log
 BKPgitignore
+.mvn
+.mvn/wrapper
