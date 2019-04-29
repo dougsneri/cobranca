@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dougsneri.algaworks.cobranca.model.StatusTitulo;
 import dougsneri.algaworks.cobranca.model.Titulo;
 import dougsneri.algaworks.cobranca.repository.Titulos;
+import dougsneri.algaworks.cobranca.repository.filter.TituloFilter;
 import dougsneri.algaworks.cobranca.service.CadastroTituloService;
 
 @Controller
@@ -55,8 +57,10 @@ public class TituloController {
 	}
 	
 	@RequestMapping
-	public ModelAndView pesquisar() {
-		List<Titulo> todosTitulos = titulos.findAll();
+	public ModelAndView pesquisar(@ModelAttribute("filtro") TituloFilter filtro) {
+		String descricao = filtro.getDescricao() == null ? "%" : filtro.getDescricao();
+		List<Titulo> todosTitulos = titulos.findByDescricaoContaining(descricao);
+		
 		ModelAndView mv = new ModelAndView("PesquisaTitulos");
 		mv.addObject("titulos", todosTitulos);
 		return mv;
@@ -76,6 +80,11 @@ public class TituloController {
 		
 		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
 		return "redirect:/titulos";
+	}
+
+	@RequestMapping(value = "/{codigo}/receber", method = RequestMethod.PUT)
+	public @ResponseBody String receber(@PathVariable Long codigo) {
+		return cadastroTituloService.receber(codigo);
 	}
 	
 	@ModelAttribute("todosStatusTitulos")
